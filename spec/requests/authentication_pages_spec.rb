@@ -27,7 +27,8 @@ describe "Authentication" do
 
   		it { should have_selector('title',   text: user.name) }
 
-  		it { should have_link('Profile',     href: user_path(user)) }
+  		it { should have_link('Users',       href: users_path) }
+      it { should have_link('Profile',     href: user_path(user)) }
       it { should have_link('Settings',    href: edit_user_path(user)) }
   		it { should have_link('Sign out',    href: signout_path) }
 
@@ -60,21 +61,25 @@ describe "Authentication" do
           end
         end
       end
-    end
 
-#      describe "in the Users controller" do
-#
-#        describe "visiting the edit page" do
-#          before { visit edit_user_path(user) }
-#          it { should have_selector('title', text: 'Sign in') }
-#        end
-#
-#        describe "submitting to the update action" do
-#          before { put user_path(user) }
-#          specify { response.should redirect_to(signin_path) }
-#        end
-#      end
-#    end
+      describe "in the Users controller" do
+
+        describe "visiting the edit page" do
+          before { visit edit_user_path(user) }
+          it { should have_selector('title', text: 'Sign in') }
+        end
+
+        describe "submitting to the update action" do
+          before { put user_path(user) }
+          specify { response.should redirect_to(signin_path) }
+        end
+
+        describe "visiting the user index" do
+          before { visit users_path }
+          it { should have_selector('title', text: 'Sign in') }
+        end
+      end
+    end
 
     describe "as wrong user" do
       let(:user) { FactoryGirl.create(:user) }
